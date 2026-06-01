@@ -1,0 +1,67 @@
+# Dependencies
+node_modules/
+vendor/
+bower_components/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+*.env.backup.*
+*.env.bak
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build and cache directories
+.cache/
+dist/
+build/
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# PHP specific
+composer.phar
+composer.lock
+
+# Database
+*.sql
+*.sqlite
+*.db
+
+# Uploads and user content
+uploads/
+public/uploads/
+
+# Backup files
+*.backup
+*.bak
+*.old
+
+# SSH keys
+*.pem
+*.key
+id_rsa*
+*.pub
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+# Made with Bob

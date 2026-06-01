@@ -1,0 +1,348 @@
+{
+  "httpMsg": {
+    "unauthorized": "Truy cập không được phép, vui lòng đăng nhập lại",
+    "forbidden": "Cấm truy cập tài nguyên này",
+    "notFound": "Tài nguyên yêu cầu không tồn tại",
+    "methodNotAllowed": "Phương thức yêu cầu không được phép",
+    "requestTimeout": "Yêu cầu hết thời gian, vui lòng thử lại sau",
+    "internalServerError": "Lỗi máy chủ nội bộ, vui lòng thử lại sau",
+    "badGateway": "Lỗi cổng, vui lòng thử lại sau",
+    "serviceUnavailable": "Dịch vụ tạm thời không khả dụng, vui lòng thử lại sau",
+    "gatewayTimeout": "Cổng hết thời gian, vui lòng thử lại sau",
+    "requestCancelled": "Yêu cầu đã bị hủy",
+    "networkError": "Lỗi kết nối mạng, vui lòng kiểm tra kết nối",
+    "requestFailed": "Yêu cầu thất bại",
+    "requestConfigError": "Lỗi cấu hình yêu cầu"
+  },
+  "topBar": {
+    "search": {
+      "title": "Tìm kiếm"
+    },
+    "user": {
+      "userCenter": "Trung tâm cá nhân",
+      "docs": "Tài liệu",
+      "github": "Github",
+      "lockScreen": "Khóa màn hình",
+      "logout": "Đăng xuất"
+    },
+    "guide": {
+      "title": "Nhấn vào đây để xem",
+      "theme": "Phong cách chủ đề",
+      "menu": "Mở menu thanh trên",
+      "description": "Và nhiều cấu hình khác"
+    }
+  },
+  "common": {
+    "tips": "Thông báo",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "logOutTips": "Bạn có muốn đăng xuất không?"
+  },
+  "search": {
+    "placeholder": "Tìm kiếm trang",
+    "historyTitle": "Lịch sử tìm kiếm",
+    "switchKeydown": "Chuyển đổi",
+    "selectKeydown": "Chọn",
+    "exitKeydown": "Đóng"
+  },
+  "setting": {
+    "menuType": {
+      "title": "Bố cục menu",
+      "list": ["Dọc", "Ngang", "Hỗn hợp", "Hai cột"]
+    },
+    "theme": {
+      "title": "Phong cách chủ đề",
+      "list": ["Sáng", "Tối", "Hệ thống"]
+    },
+    "menu": {
+      "title": "Phong cách menu"
+    },
+    "color": {
+      "title": "Màu chủ đề hệ thống"
+    },
+    "box": {
+      "title": "Kiểu hộp",
+      "list": ["Viền", "Bóng"]
+    },
+    "container": {
+      "title": "Chiều rộng container",
+      "list": ["Toàn màn hình", "Cố định"]
+    },
+    "basics": {
+      "title": "Cấu hình cơ bản",
+      "list": {
+        "multiTab": "Bật thanh tab đa trang",
+        "accordion": "Bật chế độ accordion cho sidebar",
+        "collapseSidebar": "Hiển thị nút thu gọn sidebar",
+        "fastEnter": "Hiển thị lối vào nhanh",
+        "reloadPage": "Hiển thị nút tải lại trang",
+        "breadcrumb": "Hiển thị breadcrumb toàn cục",
+        "language": "Hiển thị chọn ngôn ngữ",
+        "progressBar": "Hiển thị thanh tiến trình trên cùng",
+        "weakMode": "Chế độ yếu màu",
+        "watermark": "Watermark toàn cục",
+        "menuWidth": "Chiều rộng menu",
+        "tabStyle": "Phong cách tab",
+        "pageTransition": "Hiệu ứng chuyển trang",
+        "borderRadius": "Bo góc tùy chỉnh"
+      }
+    },
+    "tabStyle": {
+      "default": "Mặc định",
+      "card": "Thẻ",
+      "google": "Google"
+    },
+    "transition": {
+      "list": {
+        "none": "Không hiệu ứng",
+        "fade": "Mờ dần",
+        "slideLeft": "Trượt từ trái",
+        "slideBottom": "Trượt từ dưới",
+        "slideTop": "Trượt từ trên"
+      }
+    },
+    "actions": {
+      "resetConfig": "Đặt lại cấu hình",
+      "copyConfig": "Sao chép cấu hình",
+      "copySuccess": "Cấu hình đã được sao chép vào clipboard, có thể dán vào file src/config/setting.ts",
+      "copyFailed": "Sao chép thất bại, vui lòng thử lại",
+      "resetFailed": "Đặt lại thất bại, vui lòng làm mới trang và thử lại"
+    }
+  },
+  "notice": {
+    "title": "Thông báo",
+    "btnRead": "Đánh dấu đã đọc",
+    "bar": ["Thông báo", "Tin nhắn", "Việc cần làm"],
+    "text": ["Chưa có"],
+    "viewAll": "Xem tất cả"
+  },
+  "worktab": {
+    "btn": {
+      "refresh": "Làm mới",
+      "fixed": "Ghim",
+      "unfixed": "Bỏ ghim",
+      "closeLeft": "Đóng bên trái",
+      "closeRight": "Đóng bên phải",
+      "closeOther": "Đóng các tab khác",
+      "closeAll": "Đóng tất cả"
+    }
+  },
+  "login": {
+    "leftView": {
+      "title": "Hệ thống quản trị kết hợp thẩm mỹ thiết kế và phát triển hiệu quả",
+      "subTitle": "Giao diện đẹp và thực dụng, được tối ưu hóa trực quan để đảm bảo trải nghiệm người dùng xuất sắc"
+    },
+    "title": "Chào mừng trở lại",
+    "subTitle": "Nhập tài khoản và mật khẩu của bạn để đăng nhập",
+    "roles": {
+      "super": "Quản trị viên cấp cao",
+      "admin": "Quản trị viên",
+      "user": "Người dùng thường"
+    },
+    "placeholder": {
+      "username": "Vui lòng nhập tài khoản",
+      "password": "Vui lòng nhập mật khẩu",
+      "slider": "Vui lòng kéo thanh trượt để xác minh"
+    },
+    "sliderText": "Giữ và kéo thanh trượt",
+    "sliderSuccessText": "Xác minh thành công",
+    "rememberPwd": "Ghi nhớ mật khẩu",
+    "forgetPwd": "Quên mật khẩu",
+    "btnText": "Đăng nhập",
+    "noAccount": "Chưa có tài khoản?",
+    "register": "Đăng ký",
+    "success": {
+      "title": "Đăng nhập thành công",
+      "message": "Chào mừng trở lại"
+    }
+  },
+  "forgetPassword": {
+    "title": "Quên mật khẩu?",
+    "subTitle": "Nhập email của bạn để đặt lại mật khẩu",
+    "placeholder": "Vui lòng nhập email của bạn",
+    "submitBtnText": "Gửi",
+    "backBtnText": "Quay lại"
+  },
+  "register": {
+    "title": "Tạo tài khoản",
+    "subTitle": "Chào mừng bạn, vui lòng điền thông tin sau để hoàn tất đăng ký",
+    "placeholder": {
+      "username": "Vui lòng nhập tài khoản",
+      "password": "Vui lòng nhập mật khẩu",
+      "confirmPassword": "Vui lòng nhập lại mật khẩu"
+    },
+    "rule": {
+      "confirmPasswordRequired": "Vui lòng nhập lại mật khẩu",
+      "passwordMismatch": "Hai mật khẩu không khớp!",
+      "usernameLength": "Độ dài từ 3 đến 20 ký tự",
+      "passwordLength": "Mật khẩu không được ngắn hơn 6 ký tự",
+      "agreementRequired": "Vui lòng đồng ý với chính sách bảo mật"
+    },
+    "agreeText": "Tôi đồng ý",
+    "privacyPolicy": "《Chính sách bảo mật》",
+    "submitBtnText": "Đăng ký",
+    "hasAccount": "Đã có tài khoản?",
+    "toLogin": "Đăng nhập"
+  },
+  "lockScreen": {
+    "pwdError": "Mật khẩu sai",
+    "lock": {
+      "inputPlaceholder": "Vui lòng nhập mật khẩu khóa màn hình",
+      "btnText": "Khóa"
+    },
+    "unlock": {
+      "inputPlaceholder": "Vui lòng nhập mật khẩu mở khóa",
+      "btnText": "Mở khóa",
+      "backBtnText": "Quay lại đăng nhập"
+    }
+  },
+  "greeting": {
+    "dawn": "Rạng sáng rồi!",
+    "morning": "Chào buổi sáng!",
+    "afternoon": "Chào buổi chiều!",
+    "evening": "Chào buổi tối!"
+  },
+  "exceptionPage": {
+    "gohome": "Về trang chủ",
+    "403": "Xin lỗi, bạn không có quyền truy cập trang này",
+    "404": "Xin lỗi, trang bạn truy cập không tồn tại",
+    "500": "Xin lỗi, máy chủ gặp lỗi"
+  },
+  "menus": {
+    "login": {
+      "title": "Đăng nhập"
+    },
+    "register": {
+      "title": "Đăng ký"
+    },
+    "forgetPassword": {
+      "title": "Quên mật khẩu"
+    },
+    "outside": {
+      "title": "Trang nhúng"
+    },
+    "dashboard": {
+      "title": "Bảng điều khiển",
+      "console": "Bàn làm việc",
+      "analysis": "Trang phân tích",
+      "ecommerce": "Thương mại điện tử"
+    },
+    "widgets": {
+      "title": "Trung tâm component",
+      "icon": "Biểu tượng",
+      "imageCrop": "Cắt ảnh",
+      "excel": "Nhập xuất Excel",
+      "video": "Trình phát video",
+      "countTo": "Cuộn số",
+      "wangEditor": "Trình soạn thảo văn bản",
+      "watermark": "Watermark",
+      "contextMenu": "Menu chuột phải",
+      "qrcode": "Mã QR",
+      "drag": "Kéo thả",
+      "textScroll": "Cuộn văn bản",
+      "fireworks": "Pháo hoa",
+      "elementUI": "Tổng quan component"
+    },
+    "template": {
+      "title": "Trung tâm mẫu",
+      "chat": "Trò chuyện",
+      "cards": "Thẻ",
+      "banners": "Banner",
+      "charts": "Biểu đồ",
+      "map": "Bản đồ",
+      "calendar": "Lịch",
+      "pricing": "Bảng giá"
+    },
+    "article": {
+      "title": "Quản lý bài viết",
+      "articleList": "Danh sách bài viết",
+      "articleDetail": "Chi tiết bài viết",
+      "comment": "Quản lý bình luận",
+      "articlePublish": "Xuất bản bài viết"
+    },
+    "result": {
+      "title": "Trang kết quả",
+      "success": "Trang thành công",
+      "fail": "Trang thất bại"
+    },
+    "exception": {
+      "title": "Trang ngoại lệ",
+      "forbidden": "403",
+      "notFound": "404",
+      "serverError": "500"
+    },
+    "examples": {
+      "title": "Ví dụ chức năng",
+      "tabs": "Tab",
+      "tablesBasic": "Bảng cơ bản",
+      "tables": "Bảng nâng cao",
+      "tablesTree": "Bảng bố cục trái phải",
+      "forms": "Biểu mẫu",
+      "searchBar": "Biểu mẫu tìm kiếm",
+      "socketChat": "Kết nối Socket",
+      "permission": {
+        "title": "Quyền frontend",
+        "switchRole": "Chuyển quyền",
+        "buttonAuth": "Demo quyền nút",
+        "pageVisibility": "Chỉ quản trị viên cấp cao thấy"
+      }
+    },
+    "system": {
+      "title": "Quản lý hệ thống",
+      "user": "Quản lý người dùng",
+      "role": "Quản lý vai trò",
+      "userCenter": "Trung tâm cá nhân",
+      "menu": "Quản lý menu",
+      "nested": "Menu lồng nhau",
+      "menu1": "Menu 1",
+      "menu2": "Menu 2",
+      "menu21": "Menu 2-1",
+      "menu3": "Menu 3",
+      "menu31": "Menu 3-1",
+      "menu32": "Menu 3-2",
+      "menu321": "Menu 3-2-1"
+    },
+    "safeguard": {
+      "title": "Quản lý vận hành",
+      "server": "Quản lý máy chủ"
+    },
+    "plan": {
+      "title": "Kế hoạch phiên bản",
+      "log": "Nhật ký cập nhật"
+    },
+    "help": {
+      "title": "Trung tâm trợ giúp",
+      "document": "Tài liệu chính thức",
+      "liteVersion": "Phiên bản rút gọn",
+      "oldVersion": "Phiên bản v2.6.1"
+    }
+  },
+  "table": {
+    "form": {
+      "reset": "Đặt lại",
+      "submit": "Gửi"
+    },
+    "searchBar": {
+      "reset": "Đặt lại",
+      "search": "Tìm kiếm",
+      "expand": "Mở rộng",
+      "collapse": "Thu gọn",
+      "searchInputPlaceholder": "Vui lòng nhập",
+      "searchSelectPlaceholder": "Vui lòng chọn"
+    },
+    "selection": "Chọn",
+    "sizeOptions": {
+      "small": "Nhỏ gọn",
+      "default": "Mặc định",
+      "large": "Rộng rãi"
+    },
+    "column": {
+      "selection": "Chọn",
+      "expand": "Mở rộng",
+      "index": "STT"
+    },
+    "zebra": "Sọc ngựa vằn",
+    "border": "Viền",
+    "headerBackground": "Nền tiêu đề"
+  }
+}

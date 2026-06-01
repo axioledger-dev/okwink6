@@ -1,0 +1,461 @@
+/**
+ * F168 Gaming Platform - Global Styles
+ * Mobile-first design with responsive breakpoints
+ */
+
+/* ============================================
+   CSS Variables
+   ============================================ */
+:root {
+    /* Colors */
+    --f168-primary: #00d4ff;
+    --f168-secondary: #4ecdc4;
+    --f168-accent: #FFD700;
+    --f168-danger: #ff6b6b;
+    --f168-success: #51cf66;
+    --f168-warning: #ffd93d;
+
+    /* Background Gradients */
+    --f168-bg-dark: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    --f168-bg-card: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    --f168-bg-card-hover: linear-gradient(135deg, #1f1f3a 0%, #1a2540 100%);
+
+    /* Text Colors */
+    --f168-text-primary: #ffffff;
+    --f168-text-secondary: #999999;
+    --f168-text-muted: #666666;
+
+    /* Spacing */
+    --f168-spacing-xs: 4px;
+    --f168-spacing-sm: 8px;
+    --f168-spacing-md: 12px;
+    --f168-spacing-lg: 16px;
+    --f168-spacing-xl: 24px;
+
+    /* Border Radius */
+    --f168-radius-sm: 4px;
+    --f168-radius-md: 8px;
+    --f168-radius-lg: 12px;
+    --f168-radius-xl: 16px;
+    --f168-radius-full: 9999px;
+
+    /* Shadows */
+    --f168-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --f168-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --f168-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+    /* Transitions */
+    --f168-transition-fast: 0.15s ease;
+    --f168-transition-base: 0.3s ease;
+    --f168-transition-slow: 0.5s ease;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+.f168-heading-1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--f168-text-primary);
+    line-height: 1.2;
+}
+
+.f168-heading-2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--f168-text-primary);
+    line-height: 1.3;
+}
+
+.f168-heading-3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--f168-text-primary);
+    line-height: 1.4;
+}
+
+.f168-text-body {
+    font-size: 14px;
+    color: var(--f168-text-primary);
+    line-height: 1.5;
+}
+
+.f168-text-small {
+    font-size: 12px;
+    color: var(--f168-text-secondary);
+    line-height: 1.4;
+}
+
+.f168-text-gradient {
+    background: linear-gradient(90deg, var(--f168-primary) 0%, var(--f168-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+.f168-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--f168-radius-md);
+    cursor: pointer;
+    transition: all var(--f168-transition-base);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.f168-btn-primary {
+    background: linear-gradient(135deg, var(--f168-primary) 0%, var(--f168-secondary) 100%);
+    color: #fff;
+    box-shadow: var(--f168-shadow-sm);
+}
+
+.f168-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--f168-shadow-md);
+}
+
+.f168-btn-primary:active {
+    transform: translateY(0);
+}
+
+.f168-btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--f168-text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.f168-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.f168-btn-danger {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    color: #fff;
+}
+
+.f168-btn-success {
+    background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
+    color: #fff;
+}
+
+/* ============================================
+   Cards
+   ============================================ */
+.f168-card {
+    background: var(--f168-bg-card);
+    border-radius: var(--f168-radius-lg);
+    padding: var(--f168-spacing-lg);
+    box-shadow: var(--f168-shadow-md);
+    transition: all var(--f168-transition-base);
+}
+
+.f168-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--f168-shadow-lg);
+}
+
+.f168-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--f168-spacing-md);
+    padding-bottom: var(--f168-spacing-md);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.f168-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--f168-text-primary);
+}
+
+.f168-card-body {
+    color: var(--f168-text-primary);
+}
+
+/* ============================================
+   Badges
+   ============================================ */
+.f168-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: var(--f168-radius-sm);
+    text-transform: uppercase;
+}
+
+.f168-badge-hot {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    color: #fff;
+}
+
+.f168-badge-new {
+    background: linear-gradient(135deg, var(--f168-secondary) 0%, #44a08d 100%);
+    color: #fff;
+}
+
+.f168-badge-vip {
+    background: linear-gradient(135deg, var(--f168-accent) 0%, #ffa500 100%);
+    color: #000;
+}
+
+/* ============================================
+   Loading States
+   ============================================ */
+.f168-skeleton {
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.05) 25%,
+            rgba(255, 255, 255, 0.1) 50%,
+            rgba(255, 255, 255, 0.05) 75%);
+    background-size: 200% 100%;
+    animation: f168-skeleton-loading 1.5s ease-in-out infinite;
+    border-radius: var(--f168-radius-md);
+}
+
+@keyframes f168-skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+@keyframes f168-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes f168-slide-in-left {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes f168-slide-in-right {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes f168-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.f168-fade-in {
+    animation: f168-fade-in 0.3s ease;
+}
+
+.f168-slide-in-left {
+    animation: f168-slide-in-left 0.3s ease;
+}
+
+.f168-slide-in-right {
+    animation: f168-slide-in-right 0.3s ease;
+}
+
+.f168-pulse {
+    animation: f168-pulse 2s ease-in-out infinite;
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+.f168-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--f168-spacing-lg);
+}
+
+.f168-flex {
+    display: flex;
+}
+
+.f168-flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f168-flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.f168-grid {
+    display: grid;
+    gap: var(--f168-spacing-md);
+}
+
+.f168-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.f168-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.f168-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Spacing utilities */
+.f168-mt-sm {
+    margin-top: var(--f168-spacing-sm);
+}
+
+.f168-mt-md {
+    margin-top: var(--f168-spacing-md);
+}
+
+.f168-mt-lg {
+    margin-top: var(--f168-spacing-lg);
+}
+
+.f168-mb-sm {
+    margin-bottom: var(--f168-spacing-sm);
+}
+
+.f168-mb-md {
+    margin-bottom: var(--f168-spacing-md);
+}
+
+.f168-mb-lg {
+    margin-bottom: var(--f168-spacing-lg);
+}
+
+.f168-p-sm {
+    padding: var(--f168-spacing-sm);
+}
+
+.f168-p-md {
+    padding: var(--f168-spacing-md);
+}
+
+.f168-p-lg {
+    padding: var(--f168-spacing-lg);
+}
+
+/* ============================================
+   Responsive Breakpoints
+   ============================================ */
+
+/* Small phones */
+@media (max-width: 360px) {
+    :root {
+        --f168-spacing-lg: 12px;
+        --f168-spacing-xl: 20px;
+    }
+
+    .f168-heading-1 {
+        font-size: 24px;
+    }
+
+    .f168-heading-2 {
+        font-size: 20px;
+    }
+
+    .f168-heading-3 {
+        font-size: 18px;
+    }
+
+    .f168-grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Tablets */
+@media (min-width: 768px) {
+    :root {
+        --f168-spacing-lg: 20px;
+        --f168-spacing-xl: 32px;
+    }
+
+    .f168-heading-1 {
+        font-size: 32px;
+    }
+
+    .f168-heading-2 {
+        font-size: 28px;
+    }
+
+    .f168-heading-3 {
+        font-size: 24px;
+    }
+
+    .f168-grid-3 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .f168-grid-3 {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+/* ============================================
+   Scrollbar Styling
+   ============================================ */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: var(--f168-radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Made with Bob */
