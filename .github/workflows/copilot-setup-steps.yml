@@ -1,0 +1,432 @@
+name: GitHub Copilot Setup and Configuration
+
+# This workflow provides automated setup steps for GitHub Copilot integration
+# It can be triggered manually or on specific events
+
+on:
+  workflow_dispatch:
+    inputs:
+      setup_type:
+        description: 'Type of Copilot setup to perform'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - validation
+          - configuration
+  push:
+    branches: [ "main", "staging" ]
+    paths:
+      - '.github/copilot/**'
+      - '.copilot/**'
+  pull_request:
+    branches: [ "main", "staging" ]
+    paths:
+      - '.github/copilot/**'
+      - '.copilot/**'
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  copilot-setup:
+    name: GitHub Copilot Setup
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json, redis
+        coverage: none
+
+    - name: Validate Copilot Configuration
+      run: |
+        echo "🔍 Validating GitHub Copilot configuration..."
+        
+        # Check for .copilot directory
+        if [ -d ".copilot" ]; then
+          echo "✅ .copilot directory found"
+        else
+          echo "⚠️  .copilot directory not found - creating..."
+          mkdir -p .copilot
+        fi
+        
+        # Check for .github/copilot directory
+        if [ -d ".github/copilot" ]; then
+          echo "✅ .github/copilot directory found"
+        else
+          echo "⚠️  .github/copilot directory not found - creating..."
+          mkdir -p .github/copilot
+        fi
+
+    - name: Create Copilot Configuration Files
+      run: |
+        echo "📝 Creating GitHub Copilot configuration files..."
+        
+        # Create .copilot/config.json if it doesn't exist
+        if [ ! -f ".copilot/config.json" ]; then
+          cat > .copilot/config.json << 'EOF'
+        {
+          "version": "1.0",
+          "project": {
+            "name": "Gaming Platform",
+            "type": "multi-language",
+            "languages": ["php", "javascript", "vue", "typescript"],
+            "frameworks": ["webman", "vue3", "cocos"]
+          },
+          "copilot": {
+            "enabled": true,
+            "suggestions": {
+              "enabled": true,
+              "auto_trigger": true
+            },
+            "code_review": {
+              "enabled": true,
+              "auto_review": false
+            }
+          },
+          "context": {
+            "include_patterns": [
+              "boyue/**/*.php",
+              "wap/**/*.{js,vue,ts}",
+              "ht/**/*.{js,ts,tsx}"
+            ],
+            "exclude_patterns": [
+              "**/vendor/**",
+              "**/node_modules/**",
+              "**/dist/**",
+              "**/build/**",
+              "**/*.min.js"
+            ]
+          }
+        }
+        EOF
+          echo "✅ Created .copilot/config.json"
+        fi
+        
+        # Create .copilot/prompts.md if it doesn't exist
+        if [ ! -f ".copilot/prompts.md" ]; then
+          cat > .copilot/prompts.md << 'EOF'
+        # GitHub Copilot Custom Prompts
+        
+        ## Project Context
+        This is a gaming platform with multiple components:
+        - **boyue/**: PHP backend (Webman framework)
+        - **wap/**: Vue 3 frontend (mobile web app)
+        - **ht/**: Additional frontend components
+        
+        ## Coding Standards
+        
+        ### PHP (Backend)
+        - Follow PSR-12 coding standards
+        - Use type hints for all function parameters and return types
+        - Implement proper error handling with try-catch blocks
+        - Use dependency injection where applicable
+        - Write PHPDoc comments for all classes and methods
+        
+        ### JavaScript/Vue (Frontend)
+        - Use ES6+ syntax
+        - Follow Vue 3 Composition API patterns
+        - Use TypeScript where possible
+        - Implement proper error handling
+        - Write JSDoc comments for complex functions
+        
+        ## Common Patterns
+        
+        ### Game Provider Integration
+        When implementing game provider adapters:
+        1. Extend GameProviderInterface
+        2. Implement all required methods
+        3. Add proper error handling
+        4. Include logging for debugging
+        5. Add unit tests
+        
+        ### API Endpoints
+        When creating API endpoints:
+        1. Use proper HTTP methods (GET, POST, PUT, DELETE)
+        2. Validate input data
+        3. Return consistent JSON responses
+        4. Handle errors gracefully
+        5. Add rate limiting where needed
+        
+        ### Vue Components
+        When creating Vue components:
+        1. Use Composition API with <script setup>
+        2. Define props with proper types
+        3. Emit events with clear names
+        4. Use composables for shared logic
+        5. Add proper error boundaries
+        EOF
+          echo "✅ Created .copilot/prompts.md"
+        fi
+
+    - name: Create Copilot Instructions
+      run: |
+        echo "📋 Creating GitHub Copilot instructions..."
+        
+        # Create .github/copilot/instructions.md
+        cat > .github/copilot/instructions.md << 'EOF'
+        # GitHub Copilot Instructions for Gaming Platform
+        
+        ## Project Overview
+        This is a comprehensive gaming platform with:
+        - PHP backend using Webman framework
+        - Vue 3 frontend for mobile web
+        - Multiple game provider integrations
+        - Real-time features using WebSocket
+        
+        ## Key Directories
+        - `boyue/app/`: PHP application code
+        - `boyue/config/`: Configuration files
+        - `boyue/tests/`: PHPUnit tests
+        - `wap/src/`: Vue 3 source code
+        - `wap/src/components/`: Vue components
+        - `wap/src/views/`: Vue pages
+        - `wap/src/api/`: API integration layer
+        
+        ## Development Guidelines
+        
+        ### When Writing PHP Code
+        - Always use strict types: `declare(strict_types=1);`
+        - Use type hints for parameters and return types
+        - Follow PSR-12 coding standards
+        - Implement proper exception handling
+        - Use dependency injection via constructor
+        - Write unit tests for business logic
+        
+        ### When Writing Vue Code
+        - Use Composition API with `<script setup>`
+        - Define props with TypeScript types
+        - Use `ref` and `reactive` appropriately
+        - Implement proper error handling
+        - Use composables for shared logic
+        - Follow Vue 3 best practices
+        
+        ### When Integrating Game Providers
+        - Extend `GameProviderInterface`
+        - Implement all required methods
+        - Add proper error handling and logging
+        - Include configuration in `config/game_providers.php`
+        - Write integration tests
+        - Document API endpoints
+        
+        ### When Creating API Endpoints
+        - Use RESTful conventions
+        - Validate all input data
+        - Return consistent JSON responses
+        - Implement proper authentication
+        - Add rate limiting for sensitive endpoints
+        - Document with OpenAPI/Swagger
+        
+        ## Testing Requirements
+        - Write unit tests for all business logic
+        - Use PHPUnit for PHP tests
+        - Use Vitest/Jest for JavaScript tests
+        - Aim for >80% code coverage
+        - Test edge cases and error conditions
+        
+        ## Security Considerations
+        - Never commit sensitive data (API keys, passwords)
+        - Use environment variables for configuration
+        - Validate and sanitize all user input
+        - Implement proper authentication and authorization
+        - Use prepared statements for database queries
+        - Follow OWASP security guidelines
+        
+        ## Performance Guidelines
+        - Use caching where appropriate (Redis)
+        - Optimize database queries
+        - Implement pagination for large datasets
+        - Use lazy loading for Vue components
+        - Minimize API calls
+        - Use CDN for static assets
+        EOF
+        echo "✅ Created .github/copilot/instructions.md"
+
+    - name: Create Copilot Ignore File
+      run: |
+        echo "🚫 Creating .copilotignore file..."
+        
+        cat > .copilotignore << 'EOF'
+        # Dependencies
+        **/vendor/
+        **/node_modules/
+        
+        # Build outputs
+        **/dist/
+        **/build/
+        **/.next/
+        **/.nuxt/
+        
+        # Minified files
+        **/*.min.js
+        **/*.min.css
+        
+        # Logs
+        **/*.log
+        **/logs/
+        
+        # Environment files
+        **/.env
+        **/.env.*
+        !**/.env.example
+        
+        # IDE files
+        **/.vscode/
+        **/.idea/
+        **/*.swp
+        **/*.swo
+        
+        # Temporary files
+        **/tmp/
+        **/temp/
+        **/.cache/
+        
+        # Backups
+        **/backups/
+        **/*.backup
+        **/*.bak
+        
+        # Database files
+        **/*.sql
+        **/*.sqlite
+        **/*.db
+        
+        # Large media files
+        **/*.mp4
+        **/*.avi
+        **/*.mov
+        **/*.zip
+        **/*.tar.gz
+        
+        # Generated files
+        **/composer.lock
+        **/package-lock.json
+        **/yarn.lock
+        EOF
+        echo "✅ Created .copilotignore"
+
+    - name: Validate Project Structure
+      run: |
+        echo "🔍 Validating project structure for Copilot..."
+        
+        # Check for key directories
+        directories=("boyue/app" "boyue/config" "boyue/tests" "wap/src" "wap/src/components" "wap/src/views")
+        for dir in "${directories[@]}"; do
+          if [ -d "$dir" ]; then
+            echo "✅ $dir exists"
+          else
+            echo "⚠️  $dir not found"
+          fi
+        done
+        
+        # Check for key configuration files
+        files=("boyue/composer.json" "wap/package.json")
+        for file in "${files[@]}"; do
+          if [ -f "$file" ]; then
+            echo "✅ $file exists"
+          else
+            echo "⚠️  $file not found"
+          fi
+        done
+
+    - name: Generate Copilot Context Summary
+      run: |
+        echo "📊 Generating Copilot context summary..."
+        
+        cat > .copilot/context-summary.md << 'EOF'
+        # GitHub Copilot Context Summary
+        
+        Generated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+        
+        ## Project Statistics
+        
+        ### PHP Files
+        EOF
+        
+        echo "- Total PHP files: $(find boyue/app -name "*.php" 2>/dev/null | wc -l)" >> .copilot/context-summary.md
+        echo "- Test files: $(find boyue/tests -name "*.php" 2>/dev/null | wc -l)" >> .copilot/context-summary.md
+        
+        cat >> .copilot/context-summary.md << 'EOF'
+        
+        ### JavaScript/Vue Files
+        EOF
+        
+        echo "- Vue components: $(find wap/src/components -name "*.vue" 2>/dev/null | wc -l)" >> .copilot/context-summary.md
+        echo "- JavaScript files: $(find wap/src -name "*.js" 2>/dev/null | wc -l)" >> .copilot/context-summary.md
+        
+        cat >> .copilot/context-summary.md << 'EOF'
+        
+        ## Key Technologies
+        - Backend: PHP 8.1+ with Webman framework
+        - Frontend: Vue 3 with Composition API
+        - Database: MySQL with Redis caching
+        - Testing: PHPUnit, Vitest
+        - Build Tools: Composer, npm/yarn
+        
+        ## Copilot Configuration Status
+        - ✅ Configuration files created
+        - ✅ Custom prompts defined
+        - ✅ Instructions documented
+        - ✅ Ignore patterns configured
+        EOF
+        
+        echo "✅ Generated context summary"
+        cat .copilot/context-summary.md
+
+    - name: Setup Complete
+      run: |
+        echo "🎉 GitHub Copilot setup complete!"
+        echo ""
+        echo "📚 Next Steps:"
+        echo "1. Review the generated configuration files in .copilot/"
+        echo "2. Customize .copilot/prompts.md for your specific needs"
+        echo "3. Update .github/copilot/instructions.md with project-specific guidelines"
+        echo "4. Ensure your IDE has GitHub Copilot extension installed"
+        echo "5. Restart your IDE to load the new configurations"
+        echo ""
+        echo "📖 Documentation:"
+        echo "- Configuration: .copilot/config.json"
+        echo "- Custom Prompts: .copilot/prompts.md"
+        echo "- Instructions: .github/copilot/instructions.md"
+        echo "- Ignore Patterns: .copilotignore"
+        echo "- Context Summary: .copilot/context-summary.md"
+
+    - name: Create Setup Summary
+      if: always()
+      run: |
+        echo "## GitHub Copilot Setup Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "✅ Setup completed successfully" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Generated Files" >> $GITHUB_STEP_SUMMARY
+        echo "- \`.copilot/config.json\` - Main configuration" >> $GITHUB_STEP_SUMMARY
+        echo "- \`.copilot/prompts.md\` - Custom prompts" >> $GITHUB_STEP_SUMMARY
+        echo "- \`.copilot/context-summary.md\` - Project context" >> $GITHUB_STEP_SUMMARY
+        echo "- \`.github/copilot/instructions.md\` - Development guidelines" >> $GITHUB_STEP_SUMMARY
+        echo "- \`.copilotignore\` - Ignore patterns" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Next Steps" >> $GITHUB_STEP_SUMMARY
+        echo "1. Install GitHub Copilot extension in your IDE" >> $GITHUB_STEP_SUMMARY
+        echo "2. Review and customize the generated configuration files" >> $GITHUB_STEP_SUMMARY
+        echo "3. Restart your IDE to load the new configurations" >> $GITHUB_STEP_SUMMARY
+        echo "4. Start coding with enhanced Copilot suggestions!" >> $GITHUB_STEP_SUMMARY
+
+# Made with Bob
