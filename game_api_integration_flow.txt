@@ -1,0 +1,847 @@
+================================================================================
+GAME API INTEGRATION FLOW DOCUMENTATION
+Luồng Tích Hợp API Trò Chơi - Frontend & Backend Communication
+================================================================================
+
+Ngày tạo: 2026-05-31
+Mục đích: Tài liệu mô tả luồng giao tiếp giữa hệ thống và người dùng/admin 
+         để yêu cầu nhà cung cấp cấp API trò chơi
+
+================================================================================
+1. TỔNG QUAN HỆ THỐNG (SYSTEM OVERVIEW)
+================================================================================
+
+Các thành phần chính:
+- Frontend (WAP): Vue.js application
+- Backend (BOYUE): PHP Webman framework
+- Database: MySQL
+- Cache: Redis
+- Game Providers: Third-party API providers (PG, TCG, etc.)
+
+================================================================================
+2. LUỒNG NGƯỜI DÙNG (USER FLOW)
+================================================================================
+
+2.1. NGƯỜI DÙNG XEM DANH SÁCH TRÒ CHƠI
+--------------------------------------
+Frontend → Backend → Database → Frontend
+
+[Frontend: wap/src/views/games/GamesHome.vue]
+  ↓ HTTP GET Request
+  ↓ Endpoint: /api/games/list
+  ↓
+[Backend: boyue/app/controller/api/GamesController.php]
+  ↓ Query Database
+  ↓ SELECT * FROM games WHERE status = 1
+  ↓
+[Database: games table]
+  ↓ Return game list
+  ↓
+[Backend: Format response JSON]
+  ↓ Response: {code: 0, data: [...games], msg: "success"}
+  ↓
+[Frontend: Display games in GameCard.vue]
+
+Dữ liệu trả về:
+- game_id: ID trò chơi
+- game_name: Tên trò chơi
+- game_code: Mã trò chơi
+- provider: Nhà cung cấp (PG, TCG, etc.)
+- game_type: Loại game (slot, live, sports)
+- thumbnail: Hình ảnh game
+- status: Trạng thái (1=active, 0=inactive)
+
+2.2. NGƯỜI DÙNG KHỞI CHẠY TRÒ CHƠI
+----------------------------------
+Frontend → Backend → Game Provider API → Backend → Frontend
+
+[Frontend: User clicks game]
+  ↓ HTTP POST Request
+  ↓ Endpoint: /api/games/launch
+  ↓ Payload: {game_id, user_token}
+  ↓
+[Backend: GamesController::launch()]
+  ↓ Validate user session
+  ↓ Check user balance
+  ↓ Get game configuration
+  ↓
+[Backend: Call Game Provider API]
+  ↓ HTTP POST to Provider
+  ↓ Endpoint: https://provider.com/api/game/launch
+  ↓ Payload: {
+  ↓   operator_id: "xxx",
+  ↓   player_id: "user_123",
+  ↓   game_code: "pg_slot_001",
+  ↓   currency: "VND",
+  ↓   language: "vi",
+  ↓   return_url: "https://site.com/games"
+  ↓ }
+  ↓
+[Game Provider API]
+  ↓ Validate credentials
+  ↓ Generate game session
+  ↓ Return game URL
+  ↓ Response: {
+  ↓   status: "success",
+  ↓   game_url: "https://provider.com/game/session_token",
+  ↓   session_id: "sess_xyz"
+  ↓ }
+  ↓
+[Backend: Save session to database]
+  ↓ INSERT INTO game_sessions (user_id, game_id, session_id, provider)
+  ↓
+[Backend: Return game URL to frontend]
+  ↓ Response: {code: 0, data: {game_url: "..."}, msg: "success"}
+  ↓
+[Frontend: Open game in iframe/new window]
+
+2.3. NGƯỜI DÙNG CHƠI GAME - CALLBACK TỪ PROVIDER
+------------------------------------------------
+Game Provider → Backend → Database → Game Provider
+
+[Game Provider: Player places bet]
+  ↓ HTTP POST Callback
+  ↓ Endpoint: /api/games/callback/bet
+  ↓ Payload: {
+  ↓   operator_id: "xxx",
+  ↓   player_id: "user_123",
+  ↓   game_round_id: "round_456",
+  ↓   bet_amount: 10000,
+  ↓   currency: "VND",
+  ↓   timestamp: "2026-05-31T21:00:00Z",
+  ↓   signature: "hash_signature"
+  ↓ }
+  ↓
+[Backend: GamesController::callbackBet()]
+  ↓ Verify signature
+  ↓ Validate player exists
+  ↓ Check sufficient balance
+  ↓
+[Backend: Deduct balance]
+  ↓ BEGIN TRANSACTION
+  ↓ UPDATE users SET balance = balance - 10000 WHERE id = user_123
+  ↓ INSERT INTO game_transactions (user_id, type='bet', amount, game_round_id)
+  ↓ COMMIT
+  ↓
+[Backend: Return response to provider]
+  ↓ Response: {
+  ↓   status: "success",
+  ↓   balance: 990000,
+  ↓   transaction_id: "txn_789"
+  ↓ }
+  ↓
+[Game Provider: Continue game]
+
+[Game Provider: Game result - Win/Lose]
+  ↓ HTTP POST Callback
+  ↓ Endpoint: /api/games/callback/result
+  ↓ Payload: {
+  ↓   operator_id: "xxx",
+  ↓   player_id: "user_123",
+  ↓   game_round_id: "round_456",
+  ↓   win_amount: 25000,
+  ↓   currency: "VND",
+  ↓   timestamp: "2026-05-31T21:01:00Z",
+  ↓   signature: "hash_signature"
+  ↓ }
+  ↓
+[Backend: GamesController::callbackResult()]
+  ↓ Verify signature
+  ↓ Check round not already settled
+  ↓
+[Backend: Add winnings]
+  ↓ BEGIN TRANSACTION
+  ↓ UPDATE users SET balance = balance + 25000 WHERE id = user_123
+  ↓ INSERT INTO game_transactions (user_id, type='win', amount, game_round_id)
+  ↓ UPDATE game_rounds SET status='settled', win_amount=25000
+  ↓ COMMIT
+  ↓
+[Backend: Return response]
+  ↓ Response: {
+  ↓   status: "success",
+  ↓   balance: 1015000,
+  ↓   transaction_id: "txn_790"
+  ↓ }
+
+================================================================================
+3. LUỒNG ADMIN (ADMIN FLOW)
+================================================================================
+
+3.1. ADMIN XEM DANH SÁCH NHÀ CUNG CẤP
+-------------------------------------
+[Admin Frontend: /admin/games/providers]
+  ↓ HTTP GET Request
+  ↓ Endpoint: /api/admin/games/providers
+  ↓ Headers: {Authorization: "Bearer admin_token"}
+  ↓
+[Backend: AdminGamesController::getProviders()]
+  ↓ Verify admin permission
+  ↓ Query database
+  ↓ SELECT * FROM game_providers
+  ↓
+[Database: Return providers]
+  ↓ Response: {
+  ↓   code: 0,
+  ↓   data: [
+  ↓     {
+  ↓       id: 1,
+  ↓       name: "PG Soft",
+  ↓       code: "PG",
+  ↓       api_url: "https://api.pg-soft.com",
+  ↓       status: 1,
+  ↓       total_games: 150,
+  ↓       api_configured: true
+  ↓     },
+  ↓     {
+  ↓       id: 2,
+  ↓       name: "TCG Gaming",
+  ↓       code: "TCG",
+  ↓       api_url: "https://api.tcg-gaming.com",
+  ↓       status: 0,
+  ↓       total_games: 0,
+  ↓       api_configured: false
+  ↓     }
+  ↓   ]
+  ↓ }
+  ↓
+[Admin Frontend: Display provider list with status]
+
+3.2. ADMIN THÊM NHÀ CUNG CẤP MỚI
+--------------------------------
+[Admin Frontend: Click "Add Provider"]
+  ↓ Show form with fields:
+  ↓ - Provider Name
+  ↓ - Provider Code
+  ↓ - API URL
+  ↓ - API Key
+  ↓ - API Secret
+  ↓ - Operator ID
+  ↓ - Currency
+  ↓ - Language
+  ↓
+[Admin: Submit form]
+  ↓ HTTP POST Request
+  ↓ Endpoint: /api/admin/games/providers/add
+  ↓ Payload: {
+  ↓   name: "New Provider",
+  ↓   code: "NP",
+  ↓   api_url: "https://api.newprovider.com",
+  ↓   api_key: "key_xxx",
+  ↓   api_secret: "secret_yyy",
+  ↓   operator_id: "op_123",
+  ↓   currency: "VND",
+  ↓   language: "vi",
+  ↓   callback_url: "https://site.com/api/games/callback"
+  ↓ }
+  ↓
+[Backend: AdminGamesController::addProvider()]
+  ↓ Verify admin permission
+  ↓ Validate input data
+  ↓ Check provider code not exists
+  ↓
+[Backend: Test API connection]
+  ↓ HTTP POST to provider API
+  ↓ Endpoint: https://api.newprovider.com/test
+  ↓ Payload: {api_key, api_secret, operator_id}
+  ↓
+[Provider API: Validate credentials]
+  ↓ Response: {status: "success", message: "Connection OK"}
+  ↓
+[Backend: Save to database]
+  ↓ INSERT INTO game_providers (
+  ↓   name, code, api_url, api_key, api_secret,
+  ↓   operator_id, currency, language, callback_url,
+  ↓   status, created_at
+  ↓ ) VALUES (...)
+  ↓
+[Backend: Return success]
+  ↓ Response: {
+  ↓   code: 0,
+  ↓   msg: "Provider added successfully",
+  ↓   data: {provider_id: 3}
+  ↓ }
+  ↓
+[Admin Frontend: Show success message, refresh list]
+
+3.3. ADMIN ĐỒNG BỘ DANH SÁCH GAME TỪ PROVIDER
+---------------------------------------------
+[Admin Frontend: Click "Sync Games" for provider]
+  ↓ HTTP POST Request
+  ↓ Endpoint: /api/admin/games/providers/{id}/sync
+  ↓
+[Backend: AdminGamesController::syncGames()]
+  ↓ Get provider configuration
+  ↓ SELECT * FROM game_providers WHERE id = {id}
+  ↓
+[Backend: Call provider API to get game list]
+  ↓ HTTP GET to provider
+  ↓ Endpoint: https://api.provider.com/games/list
+  ↓ Headers: {
+  ↓   Authorization: "Bearer {api_key}",
+  ↓   Operator-ID: "{operator_id}"
+  ↓ }
+  ↓
+[Provider API: Return game list]
+  ↓ Response: {
+  ↓   status: "success",
+  ↓   games: [
+  ↓     {
+  ↓       game_code: "slot_001",
+  ↓       game_name: "Fortune Tiger",
+  ↓       game_type: "slot",
+  ↓       thumbnail: "https://cdn.provider.com/games/slot_001.jpg",
+  ↓       rtp: 96.5,
+  ↓       volatility: "medium",
+  ↓       max_win: 5000
+  ↓     },
+  ↓     // ... more games
+  ↓   ],
+  ↓   total: 150
+  ↓ }
+  ↓
+[Backend: Process and save games]
+  ↓ BEGIN TRANSACTION
+  ↓ foreach game in games:
+  ↓   Check if game exists:
+  ↓     SELECT id FROM games WHERE provider_id={id} AND game_code={code}
+  ↓   If exists:
+  ↓     UPDATE games SET game_name, thumbnail, rtp, updated_at
+  ↓   Else:
+  ↓     INSERT INTO games (
+  ↓       provider_id, game_code, game_name, game_type,
+  ↓       thumbnail, rtp, volatility, max_win, status, created_at
+  ↓     ) VALUES (...)
+  ↓ COMMIT
+  ↓
+[Backend: Return sync result]
+  ↓ Response: {
+  ↓   code: 0,
+  ↓   msg: "Sync completed",
+  ↓   data: {
+  ↓     total_games: 150,
+  ↓     new_games: 10,
+  ↓     updated_games: 140
+  ↓   }
+  ↓ }
+  ↓
+[Admin Frontend: Show sync result, refresh game list]
+
+3.4. ADMIN CẤU HÌNH API CREDENTIALS
+-----------------------------------
+[Admin Frontend: Edit provider settings]
+  ↓ HTTP PUT Request
+  ↓ Endpoint: /api/admin/games/providers/{id}/config
+  ↓ Payload: {
+  ↓   api_key: "new_key",
+  ↓   api_secret: "new_secret",
+  ↓   operator_id: "new_op_id",
+  ↓   callback_url: "https://site.com/api/games/callback",
+  ↓   webhook_secret: "webhook_secret_key"
+  ↓ }
+  ↓
+[Backend: AdminGamesController::updateConfig()]
+  ↓ Verify admin permission
+  ↓ Validate input
+  ↓
+[Backend: Test new credentials]
+  ↓ HTTP POST to provider API
+  ↓ Endpoint: https://api.provider.com/test
+  ↓ Payload: {api_key, api_secret, operator_id}
+  ↓
+[Provider API: Validate]
+  ↓ Response: {status: "success"}
+  ↓
+[Backend: Update database]
+  ↓ UPDATE game_providers SET
+  ↓   api_key = ?, api_secret = ?, operator_id = ?,
+  ↓   callback_url = ?, webhook_secret = ?,
+  ↓   updated_at = NOW()
+  ↓ WHERE id = ?
+  ↓
+[Backend: Clear cache]
+  ↓ Redis::del("game_provider_config:{id}")
+  ↓
+[Backend: Return success]
+  ↓ Response: {code: 0, msg: "Configuration updated"}
+
+3.5. ADMIN XEM BÁO CÁO GAME
+---------------------------
+[Admin Frontend: /admin/reports/games]
+  ↓ HTTP GET Request
+  ↓ Endpoint: /api/admin/reports/games
+  ↓ Query params: {
+  ↓   start_date: "2026-05-01",
+  ↓   end_date: "2026-05-31",
+  ↓   provider_id: 1,
+  ↓   game_type: "slot"
+  ↓ }
+  ↓
+[Backend: AdminReportsController::getGamesReport()]
+  ↓ Verify admin permission
+  ↓ Query database with aggregation
+  ↓ SELECT
+  ↓   g.game_name,
+  ↓   gp.name as provider_name,
+  ↓   COUNT(DISTINCT gt.user_id) as total_players,
+  ↓   COUNT(gt.id) as total_rounds,
+  ↓   SUM(CASE WHEN gt.type='bet' THEN gt.amount ELSE 0 END) as total_bets,
+  ↓   SUM(CASE WHEN gt.type='win' THEN gt.amount ELSE 0 END) as total_wins,
+  ↓   (total_bets - total_wins) as profit
+  ↓ FROM game_transactions gt
+  ↓ JOIN games g ON gt.game_id = g.id
+  ↓ JOIN game_providers gp ON g.provider_id = gp.id
+  ↓ WHERE gt.created_at BETWEEN ? AND ?
+  ↓ GROUP BY g.id
+  ↓ ORDER BY profit DESC
+  ↓
+[Database: Return aggregated data]
+  ↓ Response: {
+  ↓   code: 0,
+  ↓   data: {
+  ↓     summary: {
+  ↓       total_players: 1250,
+  ↓       total_rounds: 45000,
+  ↓       total_bets: 125000000,
+  ↓       total_wins: 118000000,
+  ↓       profit: 7000000,
+  ↓       rtp: 94.4
+  ↓     },
+  ↓     games: [
+  ↓       {
+  ↓         game_name: "Fortune Tiger",
+  ↓         provider: "PG Soft",
+  ↓         players: 450,
+  ↓         rounds: 12000,
+  ↓         bets: 35000000,
+  ↓         wins: 33000000,
+  ↓         profit: 2000000
+  ↓       },
+  ↓       // ... more games
+  ↓     ]
+  ↓   }
+  ↓ }
+  ↓
+[Admin Frontend: Display charts and tables]
+
+================================================================================
+4. LUỒNG YÊU CẦU API TỪ NHÀ CUNG CẤP (API REQUEST FLOW)
+================================================================================
+
+4.1. CHUẨN BỊ YÊU CẦU API
+-------------------------
+[Admin: Identify new game provider]
+  ↓ Research provider information:
+  ↓ - Provider name and website
+  ↓ - Contact information
+  ↓ - API documentation URL
+  ↓ - Supported game types
+  ↓ - Integration requirements
+  ↓
+[Admin: Prepare request document]
+  ↓ Document includes:
+  ↓ - Company information
+  ↓ - Platform details (URL, traffic, user base)
+  ↓ - Technical requirements
+  ↓ - Expected integration timeline
+  ↓ - Contact person details
+
+4.2. GỬI YÊU CẦU ĐẾN NHÀ CUNG CẤP
+---------------------------------
+[Admin: Contact provider]
+  ↓ Methods:
+  ↓ - Email to sales/integration team
+  ↓ - Fill provider's integration form
+  ↓ - Contact through account manager
+  ↓
+[Provider: Review request]
+  ↓ Provider checks:
+  ↓ - Company legitimacy
+  ↓ - License and compliance
+  ↓ - Platform quality
+  ↓ - Expected volume
+  ↓
+[Provider: Approve/Reject]
+  ↓ If approved:
+  ↓   Provider sends:
+  ↓   - API documentation
+  ↓   - Test credentials (sandbox)
+  ↓   - Integration guide
+  ↓   - Technical contact
+  ↓
+[Admin: Receive credentials]
+  ↓ Credentials include:
+  ↓ - API URL (test/production)
+  ↓ - API Key
+  ↓ - API Secret
+  ↓ - Operator ID
+  ↓ - Callback URL requirements
+  ↓ - Webhook secret
+
+4.3. TÍCH HỢP VÀ KIỂM THỬ
+-------------------------
+[Developer: Setup test environment]
+  ↓ Add provider to system (test mode)
+  ↓ Configure test credentials
+  ↓
+[Developer: Implement API integration]
+  ↓ Create provider adapter class
+  ↓ Implement required methods:
+  ↓ - authenticate()
+  ↓ - getGameList()
+  ↓ - launchGame()
+  ↓ - handleBetCallback()
+  ↓ - handleResultCallback()
+  ↓ - getBalance()
+  ↓
+[Developer: Test integration]
+  ↓ Test scenarios:
+  ↓ 1. Authentication
+  ↓ 2. Get game list
+  ↓ 3. Launch game
+  ↓ 4. Place bet
+  ↓ 5. Win/lose result
+  ↓ 6. Balance update
+  ↓ 7. Error handling
+  ↓
+[Developer: Fix issues]
+  ↓ Debug and resolve:
+  ↓ - API response format differences
+  ↓ - Signature verification
+  ↓ - Callback handling
+  ↓ - Currency conversion
+  ↓ - Timezone handling
+  ↓
+[Developer: Request production credentials]
+  ↓ After successful testing
+  ↓ Provider provides production credentials
+  ↓
+[Admin: Configure production]
+  ↓ Add production credentials
+  ↓ Enable provider
+  ↓ Sync game list
+  ↓ Set game visibility
+  ↓
+[Admin: Monitor integration]
+  ↓ Check:
+  ↓ - API response times
+  ↓ - Error rates
+  ↓ - Transaction accuracy
+  ↓ - User feedback
+
+================================================================================
+5. CẤU TRÚC DATABASE (DATABASE SCHEMA)
+================================================================================
+
+Table: game_providers
+---------------------
+id                INT PRIMARY KEY AUTO_INCREMENT
+name              VARCHAR(100)      -- Provider name
+code              VARCHAR(20) UNIQUE -- Provider code (PG, TCG, etc.)
+api_url           VARCHAR(255)      -- API endpoint URL
+api_key           VARCHAR(255)      -- API key (encrypted)
+api_secret        VARCHAR(255)      -- API secret (encrypted)
+operator_id       VARCHAR(100)      -- Operator ID
+currency          VARCHAR(10)       -- Default currency (VND, USD)
+language          VARCHAR(10)       -- Default language (vi, en)
+callback_url      VARCHAR(255)      -- Callback URL for provider
+webhook_secret    VARCHAR(255)      -- Webhook signature secret
+status            TINYINT           -- 0=inactive, 1=active
+created_at        DATETIME
+updated_at        DATETIME
+
+Table: games
+------------
+id                INT PRIMARY KEY AUTO_INCREMENT
+provider_id       INT               -- FK to game_providers
+game_code         VARCHAR(50)       -- Provider's game code
+game_name         VARCHAR(200)      -- Game display name
+game_type         VARCHAR(20)       -- slot, live, sports, etc.
+thumbnail         VARCHAR(255)      -- Game image URL
+rtp               DECIMAL(5,2)      -- Return to player %
+volatility        VARCHAR(20)       -- low, medium, high
+max_win           INT               -- Maximum win multiplier
+status            TINYINT           -- 0=inactive, 1=active
+sort_order        INT               -- Display order
+created_at        DATETIME
+updated_at        DATETIME
+INDEX idx_provider (provider_id)
+INDEX idx_type (game_type)
+INDEX idx_status (status)
+
+Table: game_sessions
+--------------------
+id                INT PRIMARY KEY AUTO_INCREMENT
+user_id           INT               -- FK to users
+game_id           INT               -- FK to games
+provider_id       INT               -- FK to game_providers
+session_id        VARCHAR(100)      -- Provider's session ID
+game_url          TEXT              -- Game launch URL
+status            VARCHAR(20)       -- active, completed, expired
+created_at        DATETIME
+expired_at        DATETIME
+INDEX idx_user (user_id)
+INDEX idx_session (session_id)
+
+Table: game_transactions
+------------------------
+id                BIGINT PRIMARY KEY AUTO_INCREMENT
+user_id           INT               -- FK to users
+game_id           INT               -- FK to games
+provider_id       INT               -- FK to game_providers
+game_round_id     VARCHAR(100)      -- Provider's round ID
+transaction_type  VARCHAR(20)       -- bet, win, refund
+amount            DECIMAL(15,2)     -- Transaction amount
+balance_before    DECIMAL(15,2)     -- Balance before transaction
+balance_after     DECIMAL(15,2)     -- Balance after transaction
+status            VARCHAR(20)       -- pending, completed, failed
+provider_txn_id   VARCHAR(100)      -- Provider's transaction ID
+created_at        DATETIME
+INDEX idx_user (user_id)
+INDEX idx_game (game_id)
+INDEX idx_round (game_round_id)
+INDEX idx_created (created_at)
+
+Table: game_rounds
+------------------
+id                BIGINT PRIMARY KEY AUTO_INCREMENT
+user_id           INT               -- FK to users
+game_id           INT               -- FK to games
+provider_id       INT               -- FK to game_providers
+round_id          VARCHAR(100) UNIQUE -- Provider's round ID
+bet_amount        DECIMAL(15,2)     -- Total bet amount
+win_amount        DECIMAL(15,2)     -- Total win amount
+status            VARCHAR(20)       -- active, settled, cancelled
+started_at        DATETIME
+settled_at        DATETIME
+INDEX idx_user (user_id)
+INDEX idx_round (round_id)
+INDEX idx_status (status)
+
+================================================================================
+6. API ENDPOINTS (BACKEND ROUTES)
+================================================================================
+
+USER ENDPOINTS
+--------------
+GET    /api/games/list                    -- Get game list
+POST   /api/games/launch                  -- Launch game
+GET    /api/games/balance                 -- Get user balance
+GET    /api/games/history                 -- Get game history
+
+PROVIDER CALLBACK ENDPOINTS
+---------------------------
+POST   /api/games/callback/bet            -- Bet callback
+POST   /api/games/callback/result         -- Result callback
+POST   /api/games/callback/refund         -- Refund callback
+GET    /api/games/callback/balance        -- Balance inquiry
+
+ADMIN ENDPOINTS
+---------------
+GET    /api/admin/games/providers         -- List providers
+POST   /api/admin/games/providers/add     -- Add provider
+PUT    /api/admin/games/providers/{id}    -- Update provider
+DELETE /api/admin/games/providers/{id}    -- Delete provider
+POST   /api/admin/games/providers/{id}/sync -- Sync games
+PUT    /api/admin/games/providers/{id}/config -- Update config
+GET    /api/admin/games/list              -- List all games
+PUT    /api/admin/games/{id}              -- Update game
+GET    /api/admin/reports/games           -- Game reports
+GET    /api/admin/reports/providers       -- Provider reports
+
+================================================================================
+7. BẢO MẬT VÀ XÁC THỰC (SECURITY & AUTHENTICATION)
+================================================================================
+
+7.1. USER AUTHENTICATION
+------------------------
+- JWT token in Authorization header
+- Token expiry: 24 hours
+- Refresh token mechanism
+- Session validation on each request
+
+7.2. ADMIN AUTHENTICATION
+-------------------------
+- Separate admin JWT token
+- Role-based access control (RBAC)
+- Permission checking per endpoint
+- Admin activity logging
+
+7.3. PROVIDER API SECURITY
+--------------------------
+- API Key + Secret authentication
+- Request signature verification (HMAC-SHA256)
+- Timestamp validation (prevent replay attacks)
+- IP whitelist (optional)
+- SSL/TLS encryption (HTTPS only)
+
+Signature Generation Example:
+-----------------------------
+string_to_sign = method + url + timestamp + body
+signature = HMAC_SHA256(string_to_sign, api_secret)
+headers = {
+  "X-API-Key": api_key,
+  "X-Timestamp": timestamp,
+  "X-Signature": signature
+}
+
+7.4. CALLBACK VERIFICATION
+--------------------------
+- Verify webhook signature from provider
+- Validate request origin
+- Check timestamp freshness
+- Prevent duplicate processing (idempotency)
+
+================================================================================
+8. XỬ LÝ LỖI VÀ LOGGING (ERROR HANDLING & LOGGING)
+================================================================================
+
+8.1. ERROR CODES
+----------------
+0     - Success
+1001  - Invalid parameters
+1002  - User not found
+1003  - Insufficient balance
+1004  - Game not available
+1005  - Provider API error
+1006  - Session expired
+1007  - Duplicate transaction
+1008  - Authentication failed
+1009  - Permission denied
+1010  - System error
+
+8.2. LOGGING LEVELS
+-------------------
+DEBUG   - Detailed debug information
+INFO    - General information (API calls, user actions)
+WARNING - Warning messages (low balance, slow API)
+ERROR   - Error messages (API failures, exceptions)
+CRITICAL - Critical errors (system failures)
+
+8.3. LOG ENTRIES
+----------------
+[2026-05-31 21:00:00] INFO: User 123 launched game PG_SLOT_001
+[2026-05-31 21:00:05] INFO: Provider API call: POST /game/launch - 200ms
+[2026-05-31 21:00:10] INFO: Bet callback received: round_456, amount: 10000
+[2026-05-31 21:00:15] ERROR: Provider API timeout: /game/launch - 30000ms
+[2026-05-31 21:00:20] WARNING: Low balance: user 123, balance: 5000
+
+================================================================================
+9. MONITORING VÀ BÁO CÁO (MONITORING & REPORTING)
+================================================================================
+
+9.1. REAL-TIME MONITORING
+-------------------------
+- API response times
+- Error rates per provider
+- Active game sessions
+- Transaction success rate
+- User balance changes
+- Provider API status
+
+9.2. DAILY REPORTS
+------------------
+- Total bets by provider
+- Total wins by provider
+- Profit/loss by game
+- Active users per game
+- Popular games ranking
+- Provider performance comparison
+
+9.3. ALERTS
+-----------
+- Provider API down
+- High error rate (>5%)
+- Slow response time (>3s)
+- Balance mismatch detected
+- Suspicious transaction patterns
+
+================================================================================
+10. QUY TRÌNH BẢO TRÌ (MAINTENANCE PROCEDURES)
+================================================================================
+
+10.1. THÊM PROVIDER MỚI
+-----------------------
+1. Liên hệ và đàm phán với provider
+2. Nhận API documentation và credentials
+3. Tạo provider adapter class
+4. Implement required methods
+5. Test trong sandbox environment
+6. Request production credentials
+7. Deploy to production
+8. Monitor integration
+9. Sync game list
+10. Enable games for users
+
+10.2. CẬP NHẬT API
+------------------
+1. Nhận thông báo API changes từ provider
+2. Review API documentation updates
+3. Update adapter class
+4. Test changes in staging
+5. Deploy to production
+6. Monitor for issues
+7. Rollback if necessary
+
+10.3. XỬ LÝ SỰ CỐ
+------------------
+1. Detect issue (monitoring/alerts)
+2. Identify affected provider/games
+3. Disable affected games if critical
+4. Investigate root cause
+5. Contact provider if needed
+6. Implement fix
+7. Test fix
+8. Re-enable games
+9. Post-mortem analysis
+
+================================================================================
+11. BEST PRACTICES
+================================================================================
+
+11.1. PERFORMANCE
+-----------------
+- Cache provider configurations (Redis)
+- Cache game lists (Redis, 1 hour TTL)
+- Use connection pooling for API calls
+- Implement request queuing for high load
+- Optimize database queries with indexes
+- Use CDN for game thumbnails
+
+11.2. RELIABILITY
+-----------------
+- Implement retry logic for API calls (3 retries)
+- Use circuit breaker pattern
+- Implement fallback mechanisms
+- Transaction atomicity (database transactions)
+- Idempotency for callbacks
+- Regular health checks
+
+11.3. SCALABILITY
+-----------------
+- Horizontal scaling for API servers
+- Load balancing across servers
+- Database read replicas
+- Redis cluster for caching
+- Async processing for non-critical tasks
+- Message queue for callbacks
+
+================================================================================
+12. CONTACT INFORMATION
+================================================================================
+
+Technical Support:
+- Email: tech@platform.com
+- Phone: +84 xxx xxx xxx
+- Slack: #game-integration
+
+Provider Relations:
+- Email: partnerships@platform.com
+- Phone: +84 xxx xxx xxx
+
+Emergency Contact:
+- On-call Engineer: +84 xxx xxx xxx
+- Escalation: manager@platform.com
+
+================================================================================
+END OF DOCUMENT
+================================================================================

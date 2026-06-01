@@ -1,0 +1,1274 @@
+{
+  "summary": {
+    "total_files": 202,
+    "translated_files": 143,
+    "total_replacements": 2134,
+    "errors": []
+  },
+  "details": {
+    "activity": [
+      {
+        "file": "activity/activity-category/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "activity/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "activity/level-reward/config.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "activity/level-reward/record.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "activity/participation-audit.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "activity/type/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      }
+    ],
+    "article": [
+      {
+        "file": "article/comment/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "article/detail/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "article/list/index.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "article/publish/index.vue",
+        "replacements": 33,
+        "success": true,
+        "error": null
+      }
+    ],
+    "auth": [
+      {
+        "file": "auth/forget-password/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "auth/login/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      }
+    ],
+    "change": [
+      {
+        "file": "change/log/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      }
+    ],
+    "chat28": [
+      {
+        "file": "chat28/config/index.vue",
+        "replacements": 35,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "chat28/live/index.vue",
+        "replacements": 19,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "chat28/message/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "chat28/robot/index.vue",
+        "replacements": 4,
+        "success": true,
+        "error": null
+      }
+    ],
+    "dashboard": [
+      {
+        "file": "dashboard/analysis/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/analysis/modules/customer-satisfaction.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/analysis/modules/sales-mapping-by-country.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/analysis/modules/target-vs-reality.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/analysis/modules/today-sales.vue",
+        "replacements": 3,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/analysis/modules/top-products.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/analysis/modules/total-revenue.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/analysis/modules/visitor-insights.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/analysis/modules/volume-service-level.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/console/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/console/modules/about-project.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/console/modules/active-user.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/console/modules/card-list.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/console/modules/dynamic-stats.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/console/modules/new-user.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/console/modules/sales-overview.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/console/modules/todo-list.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/ecommerce/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/ecommerce/modules/annual-sales.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/ecommerce/modules/banner.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/ecommerce/modules/cart-conversion-rate.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/ecommerce/modules/hot-commodity.vue",
+        "replacements": 3,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/ecommerce/modules/hot-products-list.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/ecommerce/modules/product-sales.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/ecommerce/modules/recent-transaction.vue",
+        "replacements": 12,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/ecommerce/modules/sales-classification.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/ecommerce/modules/sales-growth.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/ecommerce/modules/sales-trend.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/ecommerce/modules/total-order-volume.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/ecommerce/modules/total-products.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "dashboard/ecommerce/modules/transaction-list.vue",
+        "replacements": 4,
+        "success": true,
+        "error": null
+      }
+    ],
+    "examples": [
+      {
+        "file": "examples/forms/index.vue",
+        "replacements": 63,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "examples/forms/search-bar.vue",
+        "replacements": 41,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "examples/permission/button-auth/index.vue",
+        "replacements": 100,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "examples/permission/page-visibility/index.vue",
+        "replacements": 115,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "examples/permission/switch-role/index.vue",
+        "replacements": 32,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "examples/socket-chat/index.vue",
+        "replacements": 49,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "examples/tables/basic.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "examples/tables/index.vue",
+        "replacements": 122,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "examples/tables/tree.vue",
+        "replacements": 8,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "examples/tabs/index.vue",
+        "replacements": 31,
+        "success": true,
+        "error": null
+      }
+    ],
+    "exception": [
+      {
+        "file": "exception/403/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "exception/404/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "exception/500/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      }
+    ],
+    "finance": [
+      {
+        "file": "finance/bank/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "finance/payset/index.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "finance/rebate/components/RebateRecords.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "finance/rebate/components/RebateReport.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "finance/rebate/components/TierConfig.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "finance/rebate/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "finance/recharge/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "finance/withdraw/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      }
+    ],
+    "im": [
+      {
+        "file": "im/group/index.vue",
+        "replacements": 8,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "im/group-message/index.vue",
+        "replacements": 8,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "im/user-message/index.vue",
+        "replacements": 12,
+        "success": true,
+        "error": null
+      }
+    ],
+    "index": [
+      {
+        "file": "index/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      }
+    ],
+    "live": [
+      {
+        "file": "live/bet/index.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "live/platform/index.vue",
+        "replacements": 6,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "live/transfer/index.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      }
+    ],
+    "lottery": [
+      {
+        "file": "lottery/abnormal-record/index.vue",
+        "replacements": 4,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "lottery/game-category/index.vue",
+        "replacements": 28,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "lottery/game-list/detail.vue",
+        "replacements": 18,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "lottery/game-list/index.vue",
+        "replacements": 88,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "lottery/game-record/index.vue",
+        "replacements": 14,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "lottery/lottery-list/components/EditLottery.vue",
+        "replacements": 26,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "lottery/lottery-list/index.vue",
+        "replacements": 12,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "lottery/play-list/components/EditPlay.vue",
+        "replacements": 16,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "lottery/play-list/index.vue",
+        "replacements": 8,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "lottery/pre-result/index.vue",
+        "replacements": 13,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "lottery/pre-result-history/index.vue",
+        "replacements": 8,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "lottery/result-list/index.vue",
+        "replacements": 20,
+        "success": true,
+        "error": null
+      }
+    ],
+    "maintenance": [
+      {
+        "file": "maintenance/clear/index.vue",
+        "replacements": 20,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "maintenance/notice/index.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "maintenance/notice/modules/NoticeDialog.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "maintenance/task/index.vue",
+        "replacements": 39,
+        "success": true,
+        "error": null
+      }
+    ],
+    "member": [
+      {
+        "file": "member/agent-commission/index.vue",
+        "replacements": 66,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/agent-link/index.vue",
+        "replacements": 28,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/balance-log/index.vue",
+        "replacements": 27,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/bank-info/index.vue",
+        "replacements": 5,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/group/index.vue",
+        "replacements": 9,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/group/modules/GroupDialog.vue",
+        "replacements": 27,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/group/modules/LimitDialog.vue",
+        "replacements": 12,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/ip-check/index.vue",
+        "replacements": 24,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/list/index.vue",
+        "replacements": 8,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/list/modules/AdjustDialog.vue",
+        "replacements": 14,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/list/modules/BalanceLogDialog.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/list/modules/ChildrenDialog.vue",
+        "replacements": 3,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/list/modules/MemberDevicesDialog.vue",
+        "replacements": 6,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/list/modules/MemberDialog.vue",
+        "replacements": 7,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/list/modules/MemberInfoDialog.vue",
+        "replacements": 17,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/list/modules/WithdrawAccountDialog.vue",
+        "replacements": 13,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/login-log/index.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/notice/index.vue",
+        "replacements": 21,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "member/withdraw-account/index.vue",
+        "replacements": 20,
+        "success": true,
+        "error": null
+      }
+    ],
+    "monitor": [
+      {
+        "file": "monitor/server/index.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      }
+    ],
+    "outside": [
+      {
+        "file": "outside/Iframe.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      }
+    ],
+    "result": [
+      {
+        "file": "result/fail/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "result/success/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      }
+    ],
+    "robot": [
+      {
+        "file": "robot/hemai/index.vue",
+        "replacements": 7,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "robot/hemai/modules/HeMaiDetailDialog.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "robot/manage/index.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "robot/manage/modules/RobotDialog.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "robot/send-order/index.vue",
+        "replacements": 7,
+        "success": true,
+        "error": null
+      }
+    ],
+    "statistics": [
+      {
+        "file": "statistics/finance/index.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/finance/modules/channel-table.vue",
+        "replacements": 5,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/finance/modules/channel-trend.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/finance/modules/finance-cards.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/finance/modules/finance-trend.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/finance/modules/large-transaction.vue",
+        "replacements": 4,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/finance-analysis/index.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/lottery/index.vue",
+        "replacements": 4,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/lottery/modules/bet-pie.vue",
+        "replacements": 4,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/lottery/modules/bet-time-analysis.vue",
+        "replacements": 5,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/lottery/modules/big-win-list.vue",
+        "replacements": 5,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/lottery/modules/hot-play.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/lottery/modules/lottery-table.vue",
+        "replacements": 4,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/overview/index.vue",
+        "replacements": 10,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/overview/modules/bet-trend-chart.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/overview/modules/realtime-stats.vue",
+        "replacements": 4,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/overview/modules/stat-cards.vue",
+        "replacements": 8,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/overview/modules/trend-chart.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/overview/modules/user-growth-chart.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/overview/modules/welcome-banner.vue",
+        "replacements": 3,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/profit/index.vue",
+        "replacements": 4,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/profit/modules/cost-structure.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/profit/modules/hourly-profit.vue",
+        "replacements": 4,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/profit/modules/lottery-pie.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/profit/modules/profit-cards.vue",
+        "replacements": 4,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/profit/modules/profit-chart.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/team/index.vue",
+        "replacements": 19,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/team/modules/agent-rank.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/team/modules/commission-trend.vue",
+        "replacements": 3,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/team/modules/performance-chart.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/team/modules/team-cards.vue",
+        "replacements": 5,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/team/modules/team-structure.vue",
+        "replacements": 1,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/user/index.vue",
+        "replacements": 10,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/user/modules/active-chart.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/user/modules/device-distribution.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/user/modules/retention-card.vue",
+        "replacements": 3,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/user/modules/user-cards.vue",
+        "replacements": 6,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/user/modules/user-value-analysis.vue",
+        "replacements": 6,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "statistics/user-operations/index.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      }
+    ],
+    "system": [
+      {
+        "file": "system/banner/index.vue",
+        "replacements": 28,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/home-lottery-config/index.vue",
+        "replacements": 12,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/log/index.vue",
+        "replacements": 10,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/menu/index.vue",
+        "replacements": 15,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/menu/modules/menu-dialog.vue",
+        "replacements": 48,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/nested/menu1/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/nested/menu2/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/nested/menu3/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/nested/menu3/menu3-2/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/role/index.vue",
+        "replacements": 9,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/role/modules/role-edit-dialog.vue",
+        "replacements": 8,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/role/modules/role-permission-dialog.vue",
+        "replacements": 12,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/role/modules/role-search.vue",
+        "replacements": 8,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/settings/index.vue",
+        "replacements": 74,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/user/index.vue",
+        "replacements": 4,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/user/modules/user-dialog.vue",
+        "replacements": 11,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/user/modules/user-search.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "system/user-center/index.vue",
+        "replacements": 14,
+        "success": true,
+        "error": null
+      }
+    ],
+    "template": [
+      {
+        "file": "template/banners/index.vue",
+        "replacements": 39,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "template/calendar/index.vue",
+        "replacements": 16,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "template/cards/index.vue",
+        "replacements": 38,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "template/charts/index.vue",
+        "replacements": 12,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "template/chat/index.vue",
+        "replacements": 22,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "template/map/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "template/pricing/index.vue",
+        "replacements": 10,
+        "success": true,
+        "error": null
+      }
+    ],
+    "widgets": [
+      {
+        "file": "widgets/context-menu/index.vue",
+        "replacements": 9,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "widgets/count-to/index.vue",
+        "replacements": 3,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "widgets/drag/index.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "widgets/excel/index.vue",
+        "replacements": 12,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "widgets/fireworks/index.vue",
+        "replacements": 18,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "widgets/icon/index.vue",
+        "replacements": 7,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "widgets/image-crop/index.vue",
+        "replacements": 9,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "widgets/qrcode/index.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "widgets/text-scroll/index.vue",
+        "replacements": 19,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "widgets/video/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "widgets/wang-editor/index.vue",
+        "replacements": 96,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "widgets/watermark/index.vue",
+        "replacements": 2,
+        "success": true,
+        "error": null
+      }
+    ],
+    "Yebconfig": [
+      {
+        "file": "Yebconfig/index.vue",
+        "replacements": 31,
+        "success": true,
+        "error": null
+      }
+    ],
+    "Yebgroup": [
+      {
+        "file": "Yebgroup/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "Yebgroup/modules/ProductDialog.vue",
+        "replacements": 20,
+        "success": true,
+        "error": null
+      }
+    ],
+    "Yebrecord": [
+      {
+        "file": "Yebrecord/index.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "Yebrecord/modules/AdminOperationDialog.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      },
+      {
+        "file": "Yebrecord/shouyi.vue",
+        "replacements": 0,
+        "success": true,
+        "error": null
+      }
+    ]
+  }
+}
