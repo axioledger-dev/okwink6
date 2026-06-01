@@ -28,7 +28,7 @@
           <p>❣️Nền tảng game an toàn, uy tín, hiệu quả, bảo đảm tín nhiệm, giao dịch lớn không lo❣️</p>
           <p>👉Nạp/rút USDT ẩn danh an toàn không rủi ro👈</p>
         </template>
-        <p class="site-url">Website dễ nhớ: <span class="url-highlight">{{ siteConfig.siteDomain || '2015.com' }}</span></p>
+        <p class="site-url">Website dễ nhớ: <span class="url-highlight">{{ siteConfig.siteDomain || 'bon01.win' }}</span></p>
       </div>
 
       <div class="auth-tabs">
@@ -215,7 +215,7 @@ const strengthText = computed(() => {
 
 const formattedBrandName = computed(() => {
   const name = siteConfig.value.brandName || 'Giải trí Boyue'
-  const domain = siteConfig.value.siteDomain || '2015.com'
+  const domain = siteConfig.value.siteDomain || 'bon01.win'
   return `${name}<span class="highlight">${domain}</span>`
 })
 
@@ -259,7 +259,7 @@ const fetchDefaultTjcode = async () => {
       defaultTjcode.value = res.data.defaulttjcode || ''
       siteConfig.value = {
         brandName: res.data.webtitle || '博悦娱乐',
-        siteDomain: res.data.sitedomain || '2015.com',
+        siteDomain: res.data.sitedomain || 'bon01.win',
         promoTexts: res.data.promo_texts || []
       }
     }

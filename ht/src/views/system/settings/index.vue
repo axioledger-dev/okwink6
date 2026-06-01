@@ -31,7 +31,7 @@
                 <el-input v-model="form.webtitle" placeholder="Vui lòng nhập tên website" />
               </el-form-item>
               <el-form-item label="Tên miền dễ nhớ">
-                <el-input v-model="form.sitedomain" placeholder="Ví dụ: 2015.com">
+                <el-input v-model="form.sitedomain" placeholder="Ví dụ: bon01.win">
                   <template #prefix><ArtSvgIcon icon="ri:global-line" /></template>
                 </el-input>
                 <div class="text-xs text-g-400 mt-1">Dùng để hiển thị tên miền dễ nhớ trong popup đăng nhập</div>
