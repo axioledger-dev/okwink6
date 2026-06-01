@@ -1,0 +1,55 @@
+name: PHP CI
+
+on:
+  push:
+    branches: [ "main", "staging" ]
+  pull_request:
+    branches: [ "main", "staging" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ['8.1', '8.2', '8.3']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json, mbstring, pdo, redis
+        coverage: none
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+      working-directory: ./boyue
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: boyue/vendor
+        key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-${{ matrix.php-version }}-
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+      working-directory: ./boyue
+
+    - name: Run test suite
+      run: composer run-script test
+      working-directory: ./boyue
+      if: hashFiles('boyue/phpunit.xml') != ''
+
+    - name: Check PHP syntax
+      run: find boyue/app -name "*.php" -print0 | xargs -0 -n1 php -l
+
+# Made with Bob
